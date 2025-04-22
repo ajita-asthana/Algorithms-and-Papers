@@ -1,0 +1,107 @@
+# Refers to leetcode problem 207. Course Schedule (Medium)
+Concepts: Topological Sort + Cycle Detection in Directed Graph
+Problem: Determine if you can finish all courses given a list of prerequisites.
+
+from collections import defaultdict, deque
+
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+
+        Returns whether it's possible to finish all courses given the
+        prerequisites.
+        Each prerequisite pair [a,b] indicates that course b must be taken before course a
+        """
+
+        # Create the adjacency list representation of the graph
+        graph = defaultdict(list)
+        # Track indegree (number of prerequisites) for each course
+        in_degree = [0] * numCourses
+
+        # Build the graph
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
+            in_degree[course] += 1
+
+        # Initialize queue with courses that have no prerequisites
+        q = deque()
+
+        for course in range(numCourses):
+            if in_degree[course] == 0:
+                q.append(course)
+
+        # Process courses in topological order
+        courses_taken = 0
+        while q:
+            curr_course = q.popleft()
+            courses_taken += 1
+
+            for next_course in graph[curr_course]:
+                in_degree[next_course] -= 1
+
+                if in_degree[next_course] == 0:
+                    q.append(next_course)
+
+            return numCourses == courses_taken
+
+    def findOrder(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype List[int]
+
+        Returns the order in which course should be taken to finish all courses.
+        If it's impossible to finish all courses, returns an empty array.
+        """
+
+        # Create adjacency list representation of the graph
+        graph = [[] for _ in range(numCourses)]
+
+        in_degree = [0] * numCourses
+
+        # Build the graph
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
+            in_degree[course] += 1
+
+        # Initialize queue with course that have no prerequisites
+        q = deque()
+        for i in range(numCourses):
+            if in_degree[i] == 0:
+                q.append(i)
+
+        result = []
+        while q:
+            curr = q.popleft()
+            result.append(curr)
+
+            for next_course in graph[curr]:
+                in_degree[next_course] -= 1
+                # If all prerequisites are satisfied, add to queue
+                if in_degree[next_course] == 0:
+                    q.append(next_course)
+
+        return result if len(result) == numCourses else []
+
+
+if __name__ == "__main__":
+    solution = Solution()
+
+    # Example 1: Can finish all courses
+    num_courses1 = 2
+    prerequisites1 = [[1, 0]]
+    print(
+        f"Example 1 - Can finish all courses: {solution.canFinish(num_courses1, prerequisites1)}"
+    )
+    print(f"Course order: {solution.findOrder(num_courses1, prerequisites1)}")
+
+    # Example 2: Cannot finish all courses (cycle detected)
+    num_courses2 = 2
+    prerequisites2 = [[1, 0], [0, 1]]
+    print(
+        f"Example 2 - Can finish all course: {solution.canFinish(num_courses2, prerequisites2)}"
+    )
+    print(f"Course order: {solution.findOrder(num_courses2, prerequisites2)}")
