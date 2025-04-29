@@ -1,0 +1,31 @@
+def longestSubarrayDistinct(nums):
+  """
+  Find the length of the longest subarray containing distinct elements. 
+
+  Args:
+    nums: List[int] - the input array of integers 
+  Returns: 
+    int - the length of the longest subarray with all distince elements
+  """
+  if not nums:
+    return 0
+
+  # dictionary to store the most recent index of each element
+  last_seen = {}
+  start = 0
+  end = 0
+  max_length = 0
+
+ while end < len(nums):
+   # If we have seen this element before and it's in our current window 
+   if nums[end] in last_seen and last_seen[nums[end]] >= start:
+     start = last_seen[nums[end]] + 1
+
+    # Update the last seen position of the current element
+    last_seen[nums[end]] = end 
+
+    # Update the max length if the current window is longer 
+    curr_length = end - start + 1
+    max_length = max(max_length, curr_length)
+
+  return max_length
