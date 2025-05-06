@@ -25,7 +25,7 @@ FizzBuzz
 
 
 # Implementation
-
+```
 def fizzBuzz(n: int) -> None:
   for i in range(1, n+1):
     output = ""
@@ -39,3 +39,4 @@ def fizzBuzz(n: int) -> None:
 
   // Example:
   fizzBuzz(15)
+```
