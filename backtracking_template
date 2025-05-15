@@ -1,0 +1,15 @@
+def backtrack(current_state, remaining_choices):
+  if terminal_condition_met(current_state, remaining_choice):
+    add_to_result(current_state)
+    return 
+
+  for choice in remaining_choices:
+    # Choose 
+    apply_choice(current_state, choice)
+
+    # Explore 
+    backtrack(current_state, get_new_choices(remaining_choices, choice))
+
+    # Unchoose 
+    undo_choice(current_state, choice)
+    
