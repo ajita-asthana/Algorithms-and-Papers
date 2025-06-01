@@ -1,0 +1,17 @@
+import logfire 
+from pydantic import BaseModel 
+from fastapi import FastAPI 
+
+app = FastAPI()
+
+logfire.configure() 
+logfire.instrument_fastapi(app)
+
+class User(BaseModel):
+  name: str 
+  country_code: str 
+
+@app.post('/')
+async def add_user(user: User):
+  # we would store the user here 
+return {'message': f'{user.name} added'} 
