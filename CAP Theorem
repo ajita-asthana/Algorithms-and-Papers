@@ -11,3 +11,8 @@ The CAP Theorem: For the purpose of this section, the CAP Theorem can be stated 
 atomic read/write shared memory that guarantees a response to every request. 
 
 https://groups.csail.mit.edu/tds/papers/Gilbert/Brewer2.pdf
+
+Safety: 
+
+Liveness: 
+
