@@ -1,0 +1,13 @@
+Consistency, Availabitlity and Partition Tolerance 
+
+Consistency: In a consistent system all nodes in the network see the same version of the data at the same time. This means that when a client reads data they will always see the most 
+recent write or an error if the most recent write is unavailable. 
+
+Availability: In an available system, every request receives a non-error response, even if the data is potentially inconsistent
+
+Paritition Tolerance: A partition-tolerant system is able to continue operating despite network partitions, which are situations where communication between nodes is interupted.
+
+The CAP Theorem: For the purpose of this section, the CAP Theorem can be stated as follows: In a network subject to communication failures, it is impossible for any web service to implement 
+atomic read/write shared memory that guarantees a response to every request. 
+
+https://groups.csail.mit.edu/tds/papers/Gilbert/Brewer2.pdf
