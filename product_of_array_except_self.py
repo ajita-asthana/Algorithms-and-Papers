@@ -10,6 +10,7 @@ suffix_array = [1] * len(nums)
 
 # Prefix array 
 prefix_arr = [1] * len(nums)
+prefix = 1 
 
 for i in range(len(nums)):
   prefix_arr[i] = prefix 
