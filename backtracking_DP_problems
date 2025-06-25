@@ -1,0 +1,17 @@
+# 1. Coin Change 
+# 2. Subset Sum 
+
+class Solution:
+  def coin_change(self, coins: List[int], amount: int) -> int:
+    n = len(coins)
+    @lru_cache(maxsize=None)
+    def helper(idx: int, amount: int) -> int:
+      if idx == n or amount <= 0:
+        return 0 if amount == 0 else float('inf') 
+
+      if amount < coins[idx]:
+        return helper(idx + 1, amount)
+      else:
+        return min(1 + helper(idx, amount - coins[idx]), helper(idx + 1, amount))
+  result = helper(0, amount)
+  return -1 if result == float('inf') else result
